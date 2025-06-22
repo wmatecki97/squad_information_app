@@ -1,0 +1,11 @@
+[project]
+name = "football-chatbot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "gradio>=5.34.2",
+    "llama-index-llms-openrouter>=0.3.2",
+    "pydantic-settings>=2.10.0",
+]
