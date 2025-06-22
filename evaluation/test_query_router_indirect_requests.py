@@ -10,7 +10,7 @@ from app.services.query_router import QueryRouter
     ("Could you name the Newcastle United players active this season?", "Newcastle United"),
     ("Who are Aston Villa's key squad members today?", "Aston Villa"),
     ("Let me know who’s currently part of Fulham FC.", "Fulham FC"),
-    ("Who wears the jersey for Brentford nowadays?", "Brentford FC"),
+    ("Who wears the jersey for Brentford FC nowadays?", "Brentford FC"),
     ("What kind of lineup does Crystal Palace have this season?", "Crystal Palace"),
     ("Point out Wolves players for this campaign.", "Wolverhampton Wanderers"),
     ("Give me the names making up AFC Bournemouth's side this year.", "AFC Bournemouth"),

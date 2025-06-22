@@ -14,11 +14,11 @@ from app.services.query_router import QueryRouter
     ("Fuhlam FC players", "Fulham FC"),
     ("Crysatl Palace squad", "Crystal Palace"),
     ("Wolves current lineup", "Wolverhampton Wanderers"),
-    ("Bornmouth full squad", "Bournemouth"),
+    ("AFC Bornmouth full squad", "AFC Bournemouth"),
     ("Leeds Unitted players", "Leeds United"),
     ("Southamton FC squad", "Southampton FC"),
     ("Nottinghm Forest team", "Nottingham Forest"),
-    ("Brentfordd players", "Brentford FC"),
+    ("Brentfordd FC players", "Brentford FC"),
     ("Sheffeild United list", "Sheffield United"),
     ("Lutn Town squad", "Luton Town"),
 ])
