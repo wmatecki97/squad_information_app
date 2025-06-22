@@ -1,5 +1,8 @@
+import os
+import logging
 from typing import List, Optional, Tuple
 import gradio as gr
+from llama_index.core import set_global_handler
 from llama_index.llms.openrouter import OpenRouter
 from app.services.football_api_client import FootballAPIClient
 from app.services.player_details_fetcher import PlayerDetailFetcher
@@ -7,6 +10,19 @@ from app.services.squad_fetcher import SquadFetcher
 from app.settings import settings
 from app.services.query_router import QueryRouter
 from app.models import PlayerDetail, PlayerInSquad
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+logger = logging.getLogger(__name__)
+
+if settings.langfuse_public_key and settings.langfuse_secret_key:
+    os.environ["LANGFUSE_PUBLIC_KEY"] = settings.langfuse_public_key
+    os.environ["LANGFUSE_SECRET_KEY"] = settings.langfuse_secret_key
+    os.environ["LANGFUSE_HOST"] = settings.langfuse_host
+set_global_handler("langfuse")
 
 try:
     llm = OpenRouter(
@@ -19,7 +35,7 @@ try:
     squad_fetcher = SquadFetcher(api_client=api_client)
     player_detail_fetcher = PlayerDetailFetcher(api_client=api_client)
 except Exception as e:
-    print(f"FATAL: Could not initialize components. Check your .env file and API keys. Error: {e}")
+    logger.fatal(f"FATAL: Could not initialize components. Check your .env file and API keys. Error: {e}")
     exit()
 
 def format_squad_details(team_name: str, players: List[Tuple[PlayerInSquad, Optional[PlayerDetail]]]) -> str:
@@ -55,7 +71,7 @@ def answer(message, history):
     try:
         analysis = query_router.analyze(message, history_str="\n".join([msg[0] for msg in history ]))
     except Exception as e:
-        print(f"LLM analysis failed: {e}")
+        logger.error(f"LLM analysis failed: {e}")
         yield "Sorry, I had trouble understanding your request. The AI model may be temporarily unavailable."
         return
 
@@ -63,6 +79,10 @@ def answer(message, history):
         yield "I am a specialized bot that provides football squad information. Please ask a question like 'Who is in the Manchester City squad?'"
         return
 
+    if not analysis.refer_to_current_squad:
+        yield "⚠️ I can only provide information about current squads. Please ask about the current squad for a team."
+        return
+    
     team_name = analysis.team_name
     yield f"✅ Request understood. Searching for squad information for **{team_name}**..."
 

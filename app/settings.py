@@ -28,5 +28,19 @@ class Settings(BaseSettings):
         default=False,
         description="Set to True if using a trial API key with limited requests.",
     )
+
+    
+    langfuse_public_key: str = Field(
+        default=None,
+        description="Your Langfuse public key for tracing. Optional.",
+    )
+    langfuse_secret_key: str = Field(
+        default=None,
+        description="Your Langfuse secret key for tracing. Optional.",
+    )
+    langfuse_host: str = Field(
+        default="https://api.langfuse.com",
+        description="Your Langfuse host URL. Optional.",
+    )
     
 settings = Settings()

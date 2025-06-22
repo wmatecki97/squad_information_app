@@ -1,8 +1,10 @@
+import logging
 from typing import List, Optional
 
 from app.models import PlayerInSquad, TeamSearchResponse
 from app.services.football_api_client import FootballAPIClient
 
+logger = logging.getLogger(__name__)
 
 class SquadFetcher:
     """
@@ -31,7 +33,7 @@ class SquadFetcher:
             if teams:
                 return teams[0].team.id
         except Exception as e:
-            print(f"Error parsing team data: {e}")
+            logger.error(f"Error parsing team data: {e}")
 
         return None
 
@@ -39,7 +41,7 @@ class SquadFetcher:
         """Gets the list of players (ID, name, position) for a team."""
         team_id = self._get_team_id(team_name)
         if not team_id:
-            print(f"Team '{team_name}' not found.")
+            logger.warning(f"Team '{team_name}' not found.")
             return None
 
         response_data = self.api_client.make_request("players/squads", params={"team": str(team_id)})
@@ -50,5 +52,5 @@ class SquadFetcher:
             squad_data = response_data[0] # Response is a list with one squad object
             return [PlayerInSquad(**p) for p in squad_data["players"]]
         except (IndexError, KeyError, Exception) as e:
-            print(f"Error parsing squad data: {e}")
+            logger.error(f"Error parsing squad data: {e}")
             return None

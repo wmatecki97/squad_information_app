@@ -1,9 +1,11 @@
+import logging
 from app.settings import settings
 from app.models import PlayerDetail
 from app.services.football_api_client import FootballAPIClient
 from typing import Optional
 from datetime import datetime
 
+logger = logging.getLogger(__name__)
 
 class PlayerDetailFetcher:
     """
@@ -17,7 +19,7 @@ class PlayerDetailFetcher:
         current_season = datetime.now().year
 
         if settings.is_trial_football_api_key:
-            current_season = datetime.now().year - 3
+            current_season =  2023 #fixed season for trial version
 
         response_data = self.api_client.make_request(
             "players",
@@ -30,6 +32,6 @@ class PlayerDetailFetcher:
             player_full_data = response_data[0]
             return PlayerDetail(**player_full_data['player'])
         except (IndexError, KeyError, Exception) as e:
-            print(f"Error parsing player detail for ID {player_id}: {e}")
+            logger.error(f"Error parsing player detail for ID {player_id}: {e}")
             return None
         

@@ -1,4 +1,7 @@
+import logging
 import requests
+
+logger = logging.getLogger(__name__)
 
 
 class FootballAPIClient:
@@ -17,9 +20,9 @@ class FootballAPIClient:
             response.raise_for_status()
             data = response.json()
             if not data.get("response") or data.get("results") == 0:
-                print(f"API returned no results for {endpoint} with params {params}. Errors: {data.get('errors')}")
+                logger.warning(f"API returned no results for {endpoint} with params {params}. Errors: {data.get('errors')}")
                 return None
             return data["response"]
         except requests.exceptions.RequestException as e:
-            print(f"HTTP Request failed: {e}")
+            logger.error(f"HTTP Request failed: {e}")
             return None
