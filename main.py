@@ -102,6 +102,7 @@ demo = gr.ChatInterface(
     description="Ask for a Premier League team's squad list. Example: 'Please list the current squad for Arsenal.'",
     chatbot=gr.Chatbot(
         height=500,
+        type="tuples",
         placeholder="Ask me about a team's squad...",
         show_label=False,
     ),
@@ -121,4 +122,4 @@ demo = gr.ChatInterface(
 )
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(server_name="0.0.0.0", server_port=80)
