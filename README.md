@@ -75,7 +75,7 @@ Once the dependencies are installed and the `.env` file is configured, run the a
 ```bash
 python main.py
 ```
-This will launch a Gradio web interface, typically accessible at http://127.0.0.1:7860.
+This will launch a Gradio web interface, typically accessible at http://127.0.0.1:80.
 
 ### Running with Docker
 
@@ -103,7 +103,7 @@ Alternatively, you can run the application using Docker. Ensure you have Docker 
     ```bash
     docker run -p 80:80 --env-file .env -d football-squad-app
     ```
-    The application will be accessible at `http://localhost:7860`.
+    The application will be accessible at `http://localhost:80`.
 
 ## Evaluation Tests
 
