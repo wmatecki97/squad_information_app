@@ -89,7 +89,8 @@ Alternatively, you can run the application using Docker. Ensure you have Docker 
     You can pass your environment variables directly or use an `.env` file.
     Using `-e` flags (replace with your actual keys):
     ```bash
-    docker run -p 7860:7860 \
+    docker run -p 80:80 \
+      -d \
       -e OPENROUTER_API_KEY="your_openrouter_api_key_here" \
       -e FOOTBALL_API_KEY="your_football_api_key_here" \
       -e IS_TRIAL_FOOTBALL_API_KEY=True \
@@ -100,7 +101,7 @@ Alternatively, you can run the application using Docker. Ensure you have Docker 
     ```
     Or, using an `.env` file (ensure your `.env` file is in the same directory where you run the command):
     ```bash
-    docker run -p 7860:7860 --env-file .env football-squad-app
+    docker run -p 80:80 --env-file .env -d football-squad-app
     ```
     The application will be accessible at `http://localhost:7860`.
 

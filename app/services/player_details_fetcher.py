@@ -16,14 +16,10 @@ class PlayerDetailFetcher:
 
     def get_details_for_player(self, player_id: int) -> Optional[PlayerDetail]:
         """Fetches detailed profile for a single player by their ID."""
-        current_season = datetime.now().year
-
-        if settings.is_trial_football_api_key:
-            current_season =  2023 #fixed season for trial version
 
         response_data = self.api_client.make_request(
-            "players",
-            params={"id": str(player_id), "season": str(current_season)}
+            "players/profiles",
+            params={"player": str(player_id)}
         )
         if not response_data:
             return None
