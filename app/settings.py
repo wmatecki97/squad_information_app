@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -30,11 +31,11 @@ class Settings(BaseSettings):
     )
 
     
-    langfuse_public_key: str = Field(
+    langfuse_public_key: Optional[str] = Field(
         default=None,
         description="Your Langfuse public key for tracing. Optional.",
     )
-    langfuse_secret_key: str = Field(
+    langfuse_secret_key: Optional[str] = Field(
         default=None,
         description="Your Langfuse secret key for tracing. Optional.",
     )
