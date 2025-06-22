@@ -10,7 +10,7 @@ COPY . /app
 WORKDIR /app
 RUN uv sync --frozen --no-cache
 
-EXPOSE 7860
+EXPOSE 80
 
 # Run the application.
 CMD ["/app/.venv/bin/python", "main.py"]
